@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
 import styles from './styles';
+import Checkbox from 'expo-checkbox';
 
 interface HeaderProps {
     
     applyFilter: (text: string) => void
+    onFilterChange: (text: string) =>void
 }
 
-function Header ({ applyFilter}: HeaderProps) {
+function Header ({ applyFilter,}: HeaderProps) {
     const [filter, setFilter] = useState<string>('');
     const [inputFilter, setInputFilter ] =useState('')
 
@@ -31,6 +33,7 @@ function Header ({ applyFilter}: HeaderProps) {
                 
             />
             <Button title='Filtrar' onPress={handleApplyFilter}></Button>
+            
         </View>
     )
 }

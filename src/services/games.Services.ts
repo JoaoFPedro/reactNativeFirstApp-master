@@ -9,7 +9,7 @@ interface Game {
 
 
 const getGames = async (): Promise<Game[]> => {
-    const response = await axios.get('http://192.168.0.2:3000/api/games'); 
+    const response = await axios.get('http://192.168.0.11:3000/api/games'); 
     return response.data;
   };
   
