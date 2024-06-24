@@ -28,6 +28,7 @@ function Header ({ applyFilter}: HeaderProps) {
                 placeholder='Filtre por nome'
                 value={inputFilter}
                 onChangeText={(value) => setInputFilter(value)}
+                
             />
             <Button title='Filtrar' onPress={handleApplyFilter}></Button>
         </View>

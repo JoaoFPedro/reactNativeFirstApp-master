@@ -32,14 +32,20 @@ export default function App() {
 
   const applyFilter =(filterText: string) => {
 
-    const lowerCasedFilter = filterText.toLocaleLowerCase();
-    const filtered = games.filter(game => game.nome.toLocaleLowerCase().includes(lowerCasedFilter))
-
-    setFilteredGames(filtered);
-  }
+    if(filterText === ''){
+      setFilteredGames(games)
+    }
+    else {
+      const lowerCasedFilter = filterText.toLocaleLowerCase();
+      const filtered = games.filter(game => game.nome.toLocaleLowerCase().includes(lowerCasedFilter))
+  
+      setFilteredGames(filtered);
+    }
+    }
 
 
   const handleFilterChange = (filterText: string) => {
+    
     const filtered = games.filter(game => game.nome.toLowerCase().includes(filterText.toLowerCase()));
     setFilteredGames(filtered);
   };
@@ -53,8 +59,8 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Header  applyFilter={applyFilter}/>
+    <View style={styles.container} >
+      <Header  applyFilter={applyFilter} />
       <GameList games={filteredGames} />
       <Footer />
     </View>
