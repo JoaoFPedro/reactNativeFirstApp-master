@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-import Checkbox from 'expo-checkbox';
-
+import Checkbox from "expo-checkbox";
+import React from "react";
+import { FlatList, Text, View } from "react-native";
+import styles from "./styles";
 
 interface PlatformChecklistProps {
   platforms: string[];
@@ -9,7 +9,11 @@ interface PlatformChecklistProps {
   onPlatformChange: (platform: string) => void;
 }
 
-const PlatformChecklist: React.FC<PlatformChecklistProps> = ({ platforms, selectedPlatforms, onPlatformChange }) => {
+const PlatformChecklist: React.FC<PlatformChecklistProps> = ({
+  platforms,
+  selectedPlatforms,
+  onPlatformChange,
+}) => {
   const togglePlatform = (platform: string) => {
     onPlatformChange(platform);
   };
@@ -17,35 +21,19 @@ const PlatformChecklist: React.FC<PlatformChecklistProps> = ({ platforms, select
   return (
     <FlatList
       data={platforms}
-      renderItem={({ item }) => (
-        <View >
+      renderItem={({ item, index }) => (
+        <View style={styles.itemContainer} key={`${index}`}>
           <Checkbox
             value={selectedPlatforms.includes(item)}
             onValueChange={() => togglePlatform(item)}
           />
-          <Text style={styles.itemText} >{item}</Text>
+          <Text style={styles.itemText}>{item}</Text>
         </View>
       )}
-      keyExtractor={item => item}
+      keyExtractor={(item, index) => `${item}-${index}`}
       contentContainerStyle={styles.container}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 8,
-  },
-  itemText: {
-    marginLeft: 8,
-    fontSize: 16,
-    color: "#ffffff"
-  },
-});
 
 export default PlatformChecklist;
