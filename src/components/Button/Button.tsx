@@ -1,20 +1,25 @@
-import React from "react";
-import { Button, View } from "react-native";
+import React, { useState } from "react";
+import { Button, TextInput, View } from "react-native";
 import styles from "./styles";
 
 interface FilterButtonProps {
-  handleApplyFilter: () => void;
+  applyFilter: (text: string) => void;
 }
 
-const ButtonComponent = ({ handleApplyFilter }: FilterButtonProps) => {
+const ButtonComponent = ({ applyFilter }: FilterButtonProps) => {
+  const [input, setInput] = useState("");
+
+  const handleApplyFilter = () => {
+    applyFilter(input);
+  };
   return (
     <View style={styles.container}>
-      {/* <TextInput
+      <TextInput
         style={styles.input}
         placeholder="Filtre por nome"
-        value={inputFilter}
-        onChangeText={(value) => setInputFilter(value)}
-      /> */}
+        value={input}
+        onChangeText={(value) => setInput(value)}
+      />
       <Button title="Filter" onPress={handleApplyFilter} />
     </View>
   );
