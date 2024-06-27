@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   header: {
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 12,
     width: "80%",
-    padding: 8,
   },
 });
 
