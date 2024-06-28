@@ -18,13 +18,13 @@ export default function HomeScreen() {
   const newFilteredGames = filteredGames
 
 
-  if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
-  }
+  // if (loading) {
+  //   return <ActivityIndicator size="large" color="#0000ff" />;
+  // }
 
-  if (error) {
-    return <Text>Erro: {error.message}</Text>;
-  }
+  // if (error) {
+  //   return <Text>Erro: {error.message}</Text>;
+  // }
 
   return (
     <View style={styles.container}>
