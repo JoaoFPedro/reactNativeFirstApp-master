@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import HomeScreen from "./src/components/HomeScreen/HomeScreen";
 import { GameContextProvider } from "./src/contexts/gameContext";
 import GamesDetails from "./src/pages/GamesDetails/GamesDetails";
 import { Game } from "./src/services/games.Services";
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -121,5 +122,7 @@ export default function App() {
 }
 export type RootStackParamList = {
   Home: undefined;
-  GameDetails: { gameId: string };
+  GameDetails: { gameId: number }; // Define gameId como um parâmetro esperado
 };
+export type GameDetailsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'GameDetails'>;
+export type GameDetailsScreenRouteProp = RouteProp<RootStackParamList, 'GameDetails'>;
