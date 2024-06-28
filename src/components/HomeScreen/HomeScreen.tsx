@@ -52,17 +52,6 @@ export default function HomeScreen() {
     }
   };
 
-  // const handleFilterChange = (filterText: string) => {
-  //   const lowerCasedFilter = filterText.toLocaleLowerCase();
-  //   const filtered = games.filter(
-  //     (game) =>
-  //       game.nome.toLocaleLowerCase().includes(lowerCasedFilter) &&
-  //       (selectedPlatforms.length === 0 ||
-  //         selectedPlatforms.includes(game.plataforma))
-  //   );
-  //   setFilteredGames(filtered);
-  // };
-
   const handlePlatformChange = (platform: string) => {
     const updatedPlatforms = selectedPlatforms.includes(platform)
       ? selectedPlatforms.filter((p) => p !== platform)
