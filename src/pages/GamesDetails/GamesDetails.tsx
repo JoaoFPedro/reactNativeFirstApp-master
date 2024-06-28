@@ -1,10 +1,9 @@
-import { Text } from "react-native";
 import React from "react";
+import { useGameContext } from "../../contexts/gameContext";
 
-const GamesDetails = () => {
-    return ( 
-        <Text>Olá Mundo</Text>
-     );
-}
- 
+const GamesDetails: React.FC = () => {
+  const {} = useGameContext();
+  return null;
+};
+
 export default GamesDetails;

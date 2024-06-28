@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { View } from "react-native";
 
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import styles from "./AppStyle";
 import HomeScreen from "./src/components/HomeScreen/HomeScreen";
-import { Game } from "./src/services/games.Services";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { GameContextProvider } from "./src/contexts/gameContext";
 import GamesDetails from "./src/pages/GamesDetails/GamesDetails";
+import { Game } from "./src/services/games.Services";
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   const [games, setGames] = useState<Game[]>([]);
@@ -98,21 +99,27 @@ export default function App() {
   //   </Stack.Navigator>
   //   </NavigationContainer>
   // );
-  const Stack = createNativeStackNavigator<RootStackParamList>();
+
   return (
-    
-    <NavigationContainer>
-       <Stack.Navigator>
-    
-    <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-    <Stack.Screen name="GameDetails" component={GamesDetails} options={{ headerShown: false }} />
-   
-    </Stack.Navigator>
-    </NavigationContainer>
+    <GameContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="GameDetails"
+            component={GamesDetails}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GameContextProvider>
   );
 }
 export type RootStackParamList = {
   Home: undefined;
   GameDetails: { gameId: number };
 };
-
