@@ -8,10 +8,11 @@ import Footer from "../footer/footer";
 import Header from "../header";
 import PlatformChecklist from "../PlataformChecklist/PlataformCheckList";
 import styles from "./styles";
+import { useGameContext } from "../../contexts/gameContext";
 
 export default function HomeScreen() {
   const [games, setGames] = useState<Game[]>([]);
-  const [filteredGames, setFilteredGames] = useState<Game[]>([]);
+  const [oldfilteredGames, setFilteredGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
@@ -22,6 +23,8 @@ export default function HomeScreen() {
     console.log(plataform);
     return [...new Set(plataform)];
   }, []);
+  const { filteredGames, handlePlatformChange} = useGameContext();
+  const newFilteredGames = filteredGames
 
   const fetchGames = useCallback(async () => {
     try {
@@ -52,26 +55,26 @@ export default function HomeScreen() {
     }
   };
 
-  const handlePlatformChange = (platform: string) => {
-    const updatedPlatforms = selectedPlatforms.includes(platform)
-      ? selectedPlatforms.filter((p) => p !== platform)
-      : [...selectedPlatforms, platform];
+  // const handlePlatformChange = (platform: string) => {
+  //   const updatedPlatforms = selectedPlatforms.includes(platform)
+  //     ? selectedPlatforms.filter((p) => p !== platform)
+  //     : [...selectedPlatforms, platform];
 
-    setSelectedPlatforms(updatedPlatforms);
-    if (!updatedPlatforms.length) {
-      setFilteredGames(games);
-      return;
-    }
-    const filtered = filteredGames.filter((game) => {
-      const gameWithPlataform = game.plataforma.find((platformItem) => {
-        return updatedPlatforms.includes(platformItem);
-      });
+  //   setSelectedPlatforms(updatedPlatforms);
+  //   if (!updatedPlatforms.length) {
+  //     setFilteredGames(games);
+  //     return;
+  //   }
+  //   const filtered = filteredGames.filter((game) => {
+  //     const gameWithPlataform = game.plataforma.find((platformItem) => {
+  //       return updatedPlatforms.includes(platformItem);
+  //     });
 
-      return !!gameWithPlataform;
-    });
+  //     return !!gameWithPlataform;
+  //   });
 
-    setFilteredGames(filtered);
-  };
+  //   setFilteredGames(filtered);
+  // };
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
@@ -86,9 +89,9 @@ export default function HomeScreen() {
       <PlatformChecklist
         platforms={platforms}
         selectedPlatforms={selectedPlatforms}
-        onPlatformChange={handlePlatformChange}
+        
       />
-      <GameList games={filteredGames} />
+      <GameList games={newFilteredGames} />
 
       <Footer />
     </View>

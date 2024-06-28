@@ -4,7 +4,7 @@ import { View } from "react-native";
 import GameList from "../GameList";
 
 const GamesDetails: React.FC = () => {
-  const {applyFilter, filteredGames} = useGameContext();
+  const { filteredGames} = useGameContext();
   return(
     <View>
       <GameList games={filteredGames}/>
