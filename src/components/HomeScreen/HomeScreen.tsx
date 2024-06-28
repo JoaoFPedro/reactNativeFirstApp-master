@@ -42,18 +42,18 @@ export default function HomeScreen() {
     fetchGames();
   }, [fetchGames]);
 
-  const applyFilter = (filterText: string) => {
-    if (filterText === "") {
-      setFilteredGames(games);
-    } else {
-      const lowerCasedFilter = filterText.toLocaleLowerCase();
-      const filtered = games.filter((game) =>
-        game.nome.toLocaleLowerCase().includes(lowerCasedFilter)
-      );
+  // const applyFilter = (filterText: string) => {
+  //   if (filterText === "") {
+  //     setFilteredGames(games);
+  //   } else {
+  //     const lowerCasedFilter = filterText.toLocaleLowerCase();
+  //     const filtered = games.filter((game) =>
+  //       game.nome.toLocaleLowerCase().includes(lowerCasedFilter)
+  //     );
 
-      setFilteredGames(filtered);
-    }
-  };
+  //     setFilteredGames(filtered);
+  //   }
+  // };
 
   // const handlePlatformChange = (platform: string) => {
   //   const updatedPlatforms = selectedPlatforms.includes(platform)
@@ -85,7 +85,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Header applyFilter={applyFilter} />
+      <Header />
       <PlatformChecklist
         platforms={platforms}
         selectedPlatforms={selectedPlatforms}
