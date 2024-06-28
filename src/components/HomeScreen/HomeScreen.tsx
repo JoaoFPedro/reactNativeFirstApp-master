@@ -89,6 +89,7 @@ export default function HomeScreen() {
         onPlatformChange={handlePlatformChange}
       />
       <GameList games={filteredGames} />
+
       <Footer />
     </View>
   );
