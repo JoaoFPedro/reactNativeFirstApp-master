@@ -7,6 +7,8 @@ interface GameContextType {
   applyFilter: (filterText: string) =>string| void
   handlePlatformChange: (filterText: string) =>string| void
   filteredGames: Game []
+  platforms: string[]
+  selectedPlatforms: string[]
 }
 
 const GameContext = createContext<GameContextType>({
@@ -14,7 +16,9 @@ const GameContext = createContext<GameContextType>({
   applyFilter:() => { console.log('applyFilter is called');},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handlePlatformChange : (filterText: string) =>{},
-  filteredGames: []
+  filteredGames: [],
+  platforms: [],
+  selectedPlatforms:[]
 })
 
 const useGameContext = () => {
@@ -91,7 +95,7 @@ const GameContextProvider: React.FC<React.PropsWithChildren> = ({
 
 
   return (
-    <GameContext.Provider value={{ applyFilter, filteredGames, games, handlePlatformChange }}>{children}</GameContext.Provider>
+    <GameContext.Provider value={{ applyFilter, filteredGames, games, handlePlatformChange, platforms, selectedPlatforms }}>{children}</GameContext.Provider>
   );
 };
 export { GameContext, GameContextProvider, useGameContext };
