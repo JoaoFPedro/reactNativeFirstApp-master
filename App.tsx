@@ -121,5 +121,5 @@ export default function App() {
 }
 export type RootStackParamList = {
   Home: undefined;
-  GameDetails: { gameId: number };
+  GameDetails: { gameId: string };
 };
