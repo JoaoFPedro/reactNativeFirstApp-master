@@ -5,6 +5,9 @@ import React from "react";
 import styles from "./AppStyle";
 import HomeScreen from "./src/components/HomeScreen/HomeScreen";
 import { Game } from "./src/services/games.Services";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import GamesDetails from "./src/pages/GamesDetails/GamesDetails";
 
 export default function App() {
   const [games, setGames] = useState<Game[]>([]);
@@ -88,9 +91,28 @@ export default function App() {
   //   return <Text>Erro: {error.message}</Text>;
   // }
 
+  // return (
+  //   <NavigationContainer>
+  //     <Stack.Navigator>
+  //     <Stack.Screen name="Home" component={HomeScreen} />
+  //   </Stack.Navigator>
+  //   </NavigationContainer>
+  // );
+  const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
-    <View style={styles.container}>
-      <HomeScreen />
-    </View>
+    
+    <NavigationContainer>
+       <Stack.Navigator>
+    
+    <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="GameDetails" component={GamesDetails} options={{ headerShown: false }} />
+   
+    </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+export type RootStackParamList = {
+  Home: undefined;
+  GameDetails: { gameId: number };
+};
+

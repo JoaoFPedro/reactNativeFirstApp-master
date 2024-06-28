@@ -12,7 +12,7 @@ const GameList = ({ games } :GameListProps) => {
   return (
     <FlatList
       data={games}
-      renderItem={({ item }) => <GameCard game={item} />}
+      renderItem={({ item }) => <GameCard game={item}  />}
       
       
     />
