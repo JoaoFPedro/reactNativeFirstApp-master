@@ -9,6 +9,7 @@ interface HeaderProps {
 }
 
 function Header({ applyFilter }: HeaderProps) {
+  
   // const handleApplyFilter = () => {
   //   applyFilter(inputFilter);
   // };
@@ -22,7 +23,7 @@ function Header({ applyFilter }: HeaderProps) {
         value={inputFilter}
         onChangeText={(value) => setInputFilter(value)}
       /> */}
-      <ButtonComponent applyFilter={applyFilter} />
+      <ButtonComponent  />
     </View>
   );
 }
