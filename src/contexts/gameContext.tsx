@@ -3,7 +3,7 @@ import React from "react";
 import getGames, { Game } from "../services/games.Services";
 
 interface GameContextType {
-  games: Game[] | null;
+  games: Game[] 
   applyFilter: (filterText: string) =>string| void
   handlePlatformChange: (filterText: string) =>string| void
   filteredGames: Game []
@@ -12,7 +12,7 @@ interface GameContextType {
 }
 
 const GameContext = createContext<GameContextType>({
-  games: null,
+  games: [],
   applyFilter:() => { console.log('applyFilter is called');},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   handlePlatformChange : (filterText: string) =>{},
