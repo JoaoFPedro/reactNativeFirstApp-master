@@ -12,14 +12,14 @@ interface GameCardProps {
 const GameCard = ({ game }: GameCardProps) => {
   const navigation = useNavigation();
 
-  const generateStarRating = (ratingScore: number) => {
-    const numStars = Math.floor(ratingScore);
-    return "⭐".repeat(numStars);
-  };
+  // const generateStarRating = (ratingScore: number) => {
+  //   const numStars = Math.floor(ratingScore);
+  //   return "⭐".repeat(numStars);
+  // };
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("GameDetails", { game: item })}
+      onPress={() => navigation.navigate("GameDetails")}
     >
       <View style={styles.card}>
         <Image
