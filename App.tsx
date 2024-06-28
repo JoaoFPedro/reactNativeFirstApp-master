@@ -1,68 +1,118 @@
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { useState } from "react";
+import { View } from "react-native";
 
-import styles from './AppStyle';
-import Footer from './src/components/footer/footer';
-import Header from './src/components/header';
-import GameList from './src/pages/GameList';
-import getGames, { Game } from './src/services/games.Services';
-
+import React from "react";
+import styles from "./AppStyle";
+import HomeScreen from "./src/components/HomeScreen/HomeScreen";
+import { Game } from "./src/services/games.Services";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import GamesDetails from "./src/pages/GamesDetails/GamesDetails";
 
 export default function App() {
   const [games, setGames] = useState<Game[]>([]);
-  const [filteredGames, setFilteredGames] = useState<Game[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  // const [filteredGames, setFilteredGames] = useState<Game[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState<Error | null>(null);
+  // const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+  // const [platforms, setPlatforms] = useState<string[]>([]);
 
-  useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        const data = await getGames();
-        setGames(data);
-        setFilteredGames(data);
-      } catch (error) {
-        setError(error as Error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // const getUniquePlataform = useCallback((games: Game[]) => {
+  //   const plataform = games.map((game) => game.plataforma).flat();
+  //   console.log(plataform);
+  //   return [...new Set(plataform)];
+  // }, []);
 
-    fetchGames();
-  }, []);
+  // const fetchGames = useCallback(async () => {
+  //   try {
+  //     const data = await getGames();
+  //     setGames(data);
+  //     setFilteredGames(data);
+  //     setPlatforms(getUniquePlataform(data));
+  //   } catch (error) {
+  //     setError(error as Error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, [getUniquePlataform]);
+  // useEffect(() => {
+  //   fetchGames();
+  // }, [fetchGames]);
 
-  const applyFilter =(filterText: string) => {
+  // const applyFilter = (filterText: string) => {
+  //   if (filterText === "") {
+  //     setGames(games);
+  //   } else {
+  //     const lowerCasedFilter = filterText.toLocaleLowerCase();
+  //     const filtered = games.filter((game) =>
+  //       game.nome.toLocaleLowerCase().includes(lowerCasedFilter)
+  //     );
 
-    if(filterText === ''){
-      setFilteredGames(games)
-    }
-    else {
-      const lowerCasedFilter = filterText.toLocaleLowerCase();
-      const filtered = games.filter(game => game.nome.toLocaleLowerCase().includes(lowerCasedFilter))
-  
-      setFilteredGames(filtered);
-    }
-    }
+  //     setGames(filtered);
+  //   }
+  // };
 
+  // const handleFilterChange = (filterText: string) => {
+  //   const lowerCasedFilter = filterText.toLocaleLowerCase();
+  //   const filtered = games.filter(
+  //     (game) =>
+  //       game.nome.toLocaleLowerCase().includes(lowerCasedFilter) &&
+  //       (selectedPlatforms.length === 0 ||
+  //         selectedPlatforms.includes(game.plataforma))
+  //   );
+  //   setFilteredGames(filtered);
+  // };
 
-  const handleFilterChange = (filterText: string) => {
-    
-    const filtered = games.filter(game => game.nome.toLowerCase().includes(filterText.toLowerCase()));
-    setFilteredGames(filtered);
-  };
+  // const handlePlatformChange = (platform: string) => {
+  //   const updatedPlatforms = selectedPlatforms.includes(platform)
+  //     ? selectedPlatforms.filter((p) => p !== platform)
+  //     : [...selectedPlatforms, platform];
 
-  if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
-  }
+  //   setSelectedPlatforms(updatedPlatforms);
+  //   if (!updatedPlatforms.length) {
+  //     setFilteredGames(games);
+  //     return;
+  //   }
+  //   const filtered = filteredGames.filter((game) => {
+  //     const gameWithPlataform = game.plataforma.find((platformItem) => {
+  //       return updatedPlatforms.includes(platformItem);
+  //     });
 
-  if (error) {
-    return <Text>Erro: {error.message}</Text>;
-  }
+  //     return !!gameWithPlataform;
+  //   });
 
+  //   setFilteredGames(filtered);
+  // };
+  // if (loading) {
+  //   return <ActivityIndicator size="large" color="#0000ff" />;
+  // }
+
+  // if (error) {
+  //   return <Text>Erro: {error.message}</Text>;
+  // }
+
+  // return (
+  //   <NavigationContainer>
+  //     <Stack.Navigator>
+  //     <Stack.Screen name="Home" component={HomeScreen} />
+  //   </Stack.Navigator>
+  //   </NavigationContainer>
+  // );
+  const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
-    <View style={styles.container} >
-      <Header  applyFilter={applyFilter} />
-      <GameList games={filteredGames} />
-      <Footer />
-    </View>
+    
+    <NavigationContainer>
+       <Stack.Navigator>
+    
+    <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+    <Stack.Screen name="GameDetails" component={GamesDetails} options={{ headerShown: false }} />
+   
+    </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+export type RootStackParamList = {
+  Home: undefined;
+  GameDetails: { gameId: number };
+};
+
