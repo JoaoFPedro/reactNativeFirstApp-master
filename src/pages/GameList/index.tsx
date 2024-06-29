@@ -1,20 +1,19 @@
-import React from 'react';
-import { FlatList } from 'react-native';
+import React from "react";
+import { FlatList } from "react-native";
 
-import GameCard from '../../components/GameCard';
-import { Game } from '../../services/games.Services';
+import GameCard from "../../components/GameCard";
+import { Game } from "../../services/games.Services";
 
 interface GameListProps {
   games: Game[];
 }
 
-const GameList = ({ games } :GameListProps) => {
+const GameList = ({ games }: GameListProps) => {
   return (
     <FlatList
       data={games}
-      renderItem={({ item }) => <GameCard game={item}  />}
-      
-      
+      renderItem={({ item }) => <GameCard game={item} />}
+      keyExtractor={(item) => item.id.toString()}
     />
   );
 };
