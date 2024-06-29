@@ -1,12 +1,16 @@
 import React from "react";
 import { useGameContext } from "../../contexts/gameContext";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import GameList from "../GameList";
-import { GameDetailsScreenRouteProp } from "../../../App";
-import { useRoute } from "@react-navigation/native";
+import { GameDetailsScreenRouteProp, RootStackParamList } from "../../../App";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type NavigationProp = StackNavigationProp<RootStackParamList, 'GameDetails'>;
 
 const GamesDetails: React.FC = () => {
- 
+ const navigation = useNavigation<NavigationProp>()
+
   const route = useRoute<GameDetailsScreenRouteProp>();
   const { gameId } = route.params;
   const { games } = useGameContext();
@@ -21,7 +25,9 @@ const GamesDetails: React.FC = () => {
   }
   return(
     <View>
+      
       <GameList games={[game]}/>
+      <Button title="Back" onPress={() => navigation.navigate('Home')}></Button>
     </View>
   )
 };
