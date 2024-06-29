@@ -10,7 +10,7 @@ interface GameCardProps {
   game: Game;
 }
 
-const GameCard = ({ game }: GameCardProps) => {
+const GameCard: React.FC<GameCardProps> = ({ game }) => {
   const navigation = useNavigation<GameDetailsScreenNavigationProp>();
 
   // const generateStarRating = (ratingScore: number) => {
