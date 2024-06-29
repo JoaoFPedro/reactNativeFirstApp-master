@@ -3,15 +3,22 @@ import React from "react";
 import getGames, { Game } from "../services/games.Services";
 
 interface GameContextType {
-  games: Game[] | null;
-  applyFilter: () => void;
+  games: Game[] 
+  applyFilter: (filterText: string) =>string| void
+  handlePlatformChange: (filterText: string) =>string| void
   filteredGames: Game []
+  platforms: string[]
+  selectedPlatforms: string[]
 }
 
 const GameContext = createContext<GameContextType>({
-  games: null,
+  games: [],
   applyFilter:() => { console.log('applyFilter is called');},
-  filteredGames: []
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  handlePlatformChange : (filterText: string) =>{},
+  filteredGames: [],
+  platforms: [],
+  selectedPlatforms:[]
 })
 
 const useGameContext = () => {
@@ -52,11 +59,43 @@ const GameContextProvider: React.FC<React.PropsWithChildren> = ({
     fetchGames();
   }, [fetchGames]);
 
-  const applyFilter =() =>{
-    console.log('HELLOU WORLD')
-  }
+  const applyFilter = (filterText: string) => {
+    if (filterText === "") {
+      setFilteredGames(games);
+    } else {
+      const lowerCasedFilter = filterText.toLocaleLowerCase();
+      const filtered = games.filter((game) =>
+        game.nome.toLocaleLowerCase().includes(lowerCasedFilter)
+      );
+
+      setFilteredGames(filtered);
+    }
+  };
+
+  const handlePlatformChange = (platform: string) => {
+    const updatedPlatforms = selectedPlatforms.includes(platform)
+      ? selectedPlatforms.filter((p) => p !== platform)
+      : [...selectedPlatforms, platform];
+
+    setSelectedPlatforms(updatedPlatforms);
+    if (!updatedPlatforms.length) {
+      setFilteredGames(games);
+      return;
+    }
+    const filtered = filteredGames.filter((game) => {
+      const gameWithPlataform = game.plataforma.find((platformItem) => {
+        return updatedPlatforms.includes(platformItem);
+      });
+
+      return !!gameWithPlataform;
+    });
+
+    setFilteredGames(filtered);
+  };
+
+
   return (
-    <GameContext.Provider value={{ applyFilter, filteredGames, games }}>{children}</GameContext.Provider>
+    <GameContext.Provider value={{ applyFilter, filteredGames, games, handlePlatformChange, platforms, selectedPlatforms }}>{children}</GameContext.Provider>
   );
 };
 export { GameContext, GameContextProvider, useGameContext };

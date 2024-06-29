@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Button, TextInput, View } from "react-native";
 import styles from "./styles";
+import { useGameContext } from "../../contexts/gameContext";
 
-interface FilterButtonProps {
-  applyFilter: (text: string) => void;
-}
 
-const ButtonComponent = ({ applyFilter }: FilterButtonProps) => {
+const ButtonComponent = () => {
+  const {applyFilter} = useGameContext();
   const [input, setInput] = useState("");
 
   const handleApplyFilter = () => {

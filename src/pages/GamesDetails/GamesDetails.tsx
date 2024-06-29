@@ -1,15 +1,29 @@
 import React from "react";
 import { useGameContext } from "../../contexts/gameContext";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import GameList from "../GameList";
+import { GameDetailsScreenRouteProp } from "../../../App";
+import { useRoute } from "@react-navigation/native";
 
 const GamesDetails: React.FC = () => {
-  const {applyFilter, filteredGames} = useGameContext();
+ 
+  const route = useRoute<GameDetailsScreenRouteProp>();
+  const { gameId } = route.params;
+  const { games } = useGameContext();
+  const game = games?.find((g) => g.id === gameId);
+
+  if (!game) {
+    return (
+      <View >
+        <Text>Game not found</Text>
+      </View>
+    );
+  }
   return(
     <View>
-      <GameList games={filteredGames}/>
+      <GameList games={[game]}/>
     </View>
   )
 };
-
+//Componentes envolvidos na rota: App, GameCard, GameDetails
 export default GamesDetails;

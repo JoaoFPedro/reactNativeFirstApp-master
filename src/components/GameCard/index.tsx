@@ -4,22 +4,26 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import { Game } from "../../services/games.Services";
 import styles from "./styles";
+import { GameDetailsScreenNavigationProp } from "../../../App";
 
 interface GameCardProps {
   game: Game;
 }
 
 const GameCard = ({ game }: GameCardProps) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<GameDetailsScreenNavigationProp>();
 
-  const generateStarRating = (ratingScore: number) => {
-    const numStars = Math.floor(ratingScore);
-    return "⭐".repeat(numStars);
+  // const generateStarRating = (ratingScore: number) => {
+  //   const numStars = Math.floor(ratingScore);
+  //   return "⭐".repeat(numStars);
+  // };
+  const handlePress = () => {
+    // Navegar para a tela de detalhes do jogo com o id do jogo
+    navigation.navigate("GameDetails", { gameId: game.id });
   };
-
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("GameDetails", { game: item })}
+      onPress={handlePress}
     >
       <View style={styles.card}>
         <Image

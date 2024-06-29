@@ -3,12 +3,9 @@ import ButtonComponent from "../Button/Button";
 import styles from "./styles";
 import React = require("react");
 
-interface HeaderProps {
-  applyFilter: (text: string) => void;
-  // onFilterChange: (text: string) => void;
-}
 
-function Header({ applyFilter }: HeaderProps) {
+function Header( ) {
+  
   // const handleApplyFilter = () => {
   //   applyFilter(inputFilter);
   // };
@@ -22,7 +19,7 @@ function Header({ applyFilter }: HeaderProps) {
         value={inputFilter}
         onChangeText={(value) => setInputFilter(value)}
       /> */}
-      <ButtonComponent applyFilter={applyFilter} />
+      <ButtonComponent  />
     </View>
   );
 }
