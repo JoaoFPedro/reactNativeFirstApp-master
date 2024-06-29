@@ -6,7 +6,7 @@ import { GameDetailsScreenRouteProp } from "../../../App";
 import { useRoute } from "@react-navigation/native";
 
 const GamesDetails: React.FC = () => {
-  const { filteredGames} = useGameContext();
+ 
   const route = useRoute<GameDetailsScreenRouteProp>();
   const { gameId } = route.params;
   const { games } = useGameContext();
@@ -25,5 +25,5 @@ const GamesDetails: React.FC = () => {
     </View>
   )
 };
-
+//Componentes envolvidos na rota: App, GameCard, GameDetails
 export default GamesDetails;
